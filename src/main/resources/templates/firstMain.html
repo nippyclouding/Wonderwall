@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posting Page</title>
+
+    <!-- Bootstrap CSS 링크 추가 (필수!) -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* body에 position: relative를 주면 자식 absolute 요소들이 body를 기준으로 움직입니다. */
+        body {
+            position: relative; /* ✨ 자식 absolute 요소의 기준점 */
+            min-height: 100vh; /* ✨ 화면 전체 높이 사용 */
+            margin: 0; /* ✨ 기본 마진 제거 */
+            background-color: #f8f9fa; /* ✨ 배경색 */
+        }
+        /* hello 텍스트를 위한 기본 스타일 */
+        .main-content {
+            padding-top: 50px; /* 상단 버튼과 겹치지 않도록 여백 */
+            text-align: center;
+            font-size: 2em;
+            color: #333;
+        }
+
+        /* ✨ 두 버튼을 묶을 컨테이너 스타일 */
+        .top-right-buttons {
+            position: absolute; /* ✨ body를 기준으로 절대 위치 지정 */
+            top: 15px; /* ✨ 상단에서 15px 떨어뜨림 */
+            right: 15px; /* ✨ 오른쪽에서 15px 떨어뜨림 */
+            display: flex; /* ✨ Flexbox를 사용하여 자식 요소 정렬 */
+            gap: 10px;    /* ✨ 자식 요소(버튼) 사이의 간격 */
+        }
+
+        /* ✨ 개별 버튼 스타일 (btn-sm은 Bootstrap 클래스) */
+        .top-right-buttons .btn {
+            padding: 5px 10px; /* ✨ 버튼 크기 조절 */
+            font-size: 0.9em; /* ✨ 글자 크기 조절 */
+            /* btn-outline-secondary, btn-sm 등은 Bootstrap 클래스이므로 여기에 다시 정의할 필요 없습니다. */
+        }
+
+        /* ✨ 추가된 CSS 시작 ✨ */
+        table {
+            width: 80%; /* ✨ 테이블 너비 설정 (화면의 80%) */
+            margin: 20px auto; /* ✨ 상하 20px 마진, 좌우 auto로 테이블 중앙 정렬 */
+            border-collapse: collapse; /* ✨ 셀 경계선이 겹치지 않도록 병합 */
+            background-color: #ffffff; /* ✨ 테이블 배경색 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* ✨ 부드러운 그림자 효과 */
+        }
+
+        table th, table td {
+            border: 1px solid #dee2e6; /* ✨ 셀 경계선 스타일 */
+            padding: 12px 20px; /* ✨ 셀 내부 여백: 상하 12px, 좌우 20px (좌우 여백을 늘려 띄우기) */
+            text-align: center; /* ✨ 셀 안의 텍스트 중앙 정렬 */
+        }
+
+        table thead th {
+            background-color: #e9ecef; /* ✨ 헤더 배경색 */
+            color: #495057; /* ✨ 헤더 글자색 */
+            font-weight: bold; /* ✨ 헤더 글자 굵게 */
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* ✨ 짝수 행 배경색 (줄무늬 효과) */
+        }
+
+        table tbody tr:hover {
+            background-color: #e2e6ea; /* ✨ 마우스 오버 시 행 배경색 변경 */
+        }
+        /* ✨ 추가된 CSS 끝 ✨ */
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <h3>MAIN PAGE</h3>
+</div>
+
+
+
+<div class="top-right-buttons">
+    <a th:href="@{/signOut}" class="btn btn-outline-secondary btn-sm">로그아웃</a>
+    <a th:href="@{/deleteAccount}" class="btn btn-outline-secondary btn-sm">회원탈퇴</a>
+</div>
+
+</body>
+</html>

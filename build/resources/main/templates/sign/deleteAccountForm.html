@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 탈퇴</title>
+    <!-- Bootstrap CSS 링크 (필요하다면 추가) -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* ✨ 이전에 사용했던 스타일 (필요하다면 여기에 추가) */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .container { /* 폼 전체를 감싸는 컨테이너 스타일 */
+            text-align: center;
+            padding: 40px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px; /* 너비를 조금 더 넓게 */
+        }
+        h1 { /* 제목 스타일 */
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .warning-text { /* ✨ 경고 메시지 스타일 */
+            font-size: 1.1em;
+            color: #dc3545; /* 빨간색 */
+            font-weight: bold;
+            margin-bottom: 10px; /* 아래 메시지와의 간격 */
+        }
+        .message-text { /* ✨ 일반 메시지 스타일 */
+            font-size: 1.1em;
+            color: #6c757d;
+            margin-bottom: 20px; /* 폼과의 간격 */
+        }
+        .form-group { /* 폼 그룹 간격 */
+            margin-bottom: 15px;
+            text-align: left; /* 라벨과 입력 필드 왼쪽 정렬 */
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-control { /* 입력 필드 기본 스타일 */
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+        textarea.form-control {
+            resize: vertical; /* 세로 크기 조절 가능 */
+        }
+        .checkbox-group { /* 체크박스 그룹 스타일 */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        .button-group { /* 버튼 그룹 스타일 */
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .button-group button, .button-group a {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            text-decoration: none; /* 링크 밑줄 제거 */
+        }
+        .error-message { /* 에러 메시지 스타일 */
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<!-- ✨ 모든 내용을 하나의 컨테이너로 감싸서 중앙 정렬 -->
+<div class="container">
+    <h1>회원 탈퇴</h1>
+
+    <!-- ✨ 추가할 메시지들 -->
+    <p class="warning-text">- 계정 삭제는 영구적이며 돌이킬 수 없습니다.</p>
+    <p class="message-text">- 계정 삭제를 하시겠습니까 ?</p>
+
+    <form th:action="@{/deleteAccount}" method="post" th:object="${memberDeleteDto}">
+        <!-- ✨ 비밀번호 확인 필드 -->
+        <div class="form-group">
+            <label for="password">비밀번호 확인:</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+        </div>
+
+        <!-- ✨ 확인 체크박스 -->
+        <div class="checkbox-group">
+            <input type="checkbox" id="confirm" required>
+            <label for="confirm">위 내용을 확인했으며, 탈퇴를 진행하겠습니다.</label>
+        </div>
+
+        <!-- ✨ 버튼 그룹 -->
+        <div class="button-group">
+            <button type="submit" class="btn btn-danger">탈퇴하기</button>
+            <a th:href="@{/posting}" class="btn btn-secondary">취소</a>
+        </div>
+    </form>
+
+    <!-- ✨ 에러 메시지 표시 (컨트롤러에서 error 모델 속성으로 전달) -->
+    <div th:if="${error}" th:text="${error}" class="error-message"></div>
+</div>
+</body>
+</html>

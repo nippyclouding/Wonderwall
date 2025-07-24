@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>회원가입</title>
+    <!-- Bootstrap CSS 링크 (친구의 경로에 맞게 수정해주세요) -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex; /* Flexbox를 사용하여 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+            min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+            margin: 0;
+            background-color: #f8f9fa; /* 배경색 설정 */
+        }
+        .container {
+            text-align: center; /* 내부 요소 중앙 정렬 */
+            padding: 40px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            max-width: 450px; /* 컨테이너 최대 너비 */
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 30px; /* 제목 아래 여백 */
+        }
+        .form-group {
+            margin-bottom: 20px; /* 입력 필드 간 간격 */
+            text-align: left; /* 라벨과 입력칸 왼쪽 정렬 */
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block; /* 라벨을 블록 요소로 만들어 아래 입력칸과 분리 */
+        }
+        .btn-group-top { /* 기존 회원가입/취소 버튼 그룹 */
+            margin-top: 30px; /* 버튼 그룹 위 여백 */
+            display: flex;
+            gap: 10px; /* 버튼 사이 간격 */
+        }
+        .btn-group-top .btn {
+            flex-grow: 1; /* 버튼이 공간을 균등하게 차지 */
+            padding: 12px 20px;
+            font-size: 1.1em;
+        }
+        .btn-group-bottom { /* 새로 추가된 하단 버튼 그룹 */
+            margin-top: 15px; /* 상단 버튼 그룹과의 간격 */
+            display: flex;
+            gap: 10px; /* 버튼 사이 간격 */
+        }
+        .btn-group-bottom .btn {
+            flex-grow: 1; /* 버튼이 공간을 균등하게 차지 */
+            padding: 12px 20px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="py-3">
+        <h2>회원가입</h2>
+    </div>
+
+    <!-- 폼 전송 객체를 Member 객체로 사용 -->
+    <form th:action="@{/signUp}" method="post" th:object="${member}">
+
+        <!-- 이름 입력 필드 -->
+        <div class="form-group">
+            <label for="username">이름</label>
+            <input type="text" id="username" th:field="*{username}"
+                   class="form-control" placeholder="이름을 입력하세요">
+        </div>
+
+        <!-- 사용할 ID 입력 필드 -->
+        <div class="form-group">
+            <label for="loginId">사용할 ID</label>
+            <input type="text" id="loginId" th:field="*{loginId}"
+                   class="form-control" placeholder="사용할 ID를 입력하세요">
+        </div>
+
+        <!-- 사용할 비밀번호 입력 필드 -->
+        <div class="form-group">
+            <label for="password">사용할 비밀번호</label>
+            <input type="password" id="password" th:field="*{password}"
+                   class="form-control" placeholder="사용할 비밀번호를 입력하세요">
+        </div>
+
+
+        <!-- 새로 추가된 하단 버튼 그룹 -->
+        <div class="btn-group-bottom">
+            <!-- ✨ 사용 버튼을 type="submit"으로 변경하여 폼을 제출하도록 합니다. -->
+            <!-- ✨ 이 버튼을 누르면 form의 th:action인 @{/signUp} (POST 방식)으로 요청이 전송됩니다. -->
+            <button type="submit" class="btn btn-info btn-lg">사용</button>
+
+            <!-- 뒤로 버튼 -->
+            <a th:href="@{/}" class="btn btn-warning btn-lg">뒤로</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

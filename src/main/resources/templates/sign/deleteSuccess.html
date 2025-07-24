@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>회원 탈퇴 성공</title> <!-- ✨ 페이지 제목을 더 명확하게 변경 -->
+    <!-- Bootstrap CSS 링크 -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex; /* Flexbox를 사용하여 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+            min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+            margin: 0;
+            background-color: #f8f9fa; /* 배경색 설정 */
+        }
+        .container {
+            text-align: center; /* 내부 요소 중앙 정렬 */
+            padding: 40px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            max-width: 400px; /* 컨테이너 최대 너비 */
+        }
+        h2 { /* ✨ "회원 탈퇴 성공" 메시지를 위한 h2 스타일 */
+            color: #28a745; /* 성공 메시지이므로 초록색 계열 */
+            margin-bottom: 30px;
+        }
+        .btn-main-action { /* ✨ 메인 액션 버튼을 위한 커스텀 클래스 */
+            margin-top: 20px; /* 제목과의 간격을 위해 버튼 위에 여백 추가 */
+        }
+        /* ✨ 아래 스타일들은 이 페이지에서 직접 사용되지 않지만, 다른 페이지와 공통 스타일이라면 유지해도 됩니다. */
+        .button-group {
+            display: flex;
+            flex-direction: column; /* 버튼을 세로로 정렬 */
+            gap: 15px; /* 버튼 사이 간격 */
+            margin-top: 30px;
+        }
+        .button-group .btn {
+            width: 100%; /* 버튼 너비를 그룹에 맞게 */
+            padding: 12px 20px; /* 버튼 패딩 */
+            font-size: 1.1em; /* 버튼 글자 크기 */
+        }
+        p {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<!-- ✨ 모든 내용을 하나의 .container로 묶습니다. -->
+<div class="container">
+    <h2>회원 탈퇴 성공</h2> <!-- ✨ 텍스트를 h2 태그로 감싸서 제목으로 만듭니다. -->
+    <p>서비스를 이용해 주셔서 감사합니다.</p> <!-- ✨ 추가적인 메시지 (선택 사항) -->
+
+    <!-- ✨ 버튼에 btn-main-action 클래스를 추가하여 위쪽 여백을 줍니다. -->
+    <a th:href="@{/}" class="btn btn-warning btn-lg btn-main-action">홈으로</a>
+</div>
+</body>
+</html>

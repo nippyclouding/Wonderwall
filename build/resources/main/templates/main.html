@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>메인 페이지</title>
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex; /* Flexbox를 사용하여 중앙 정렬 */
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center; /* 세로 중앙 정렬 */
+            min-height: 100vh; /* 뷰포트 전체 높이 사용 */
+            margin: 0;
+            background-color: #f8f9fa; /* 배경색 설정 */
+        }
+        .container {
+            text-align: center; /* 내부 요소 중앙 정렬 */
+            padding: 40px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+            max-width: 400px; /* 컨테이너 최대 너비 */
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column; /* 버튼을 세로로 정렬 */
+            gap: 15px; /* 버튼 사이 간격 */
+            margin-top: 30px;
+        }
+        .button-group .btn {
+            width: 100%; /* 버튼 너비를 그룹에 맞게 */
+            padding: 12px 20px; /* 버튼 패딩 */
+            font-size: 1.1em; /* 버튼 글자 크기 */
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="py-3">
+        <h2>회원가입/로그인 라이브러리</h2>
+        <p>서비스를 이용하시려면 로그인 또는 회원가입을 해주세요.</p>
+    </div>
+
+    <div class="button-group">
+        <!-- 로그인 버튼 -->
+        <!-- GET 방식으로 /signIn URL로 이동합니다. -->
+        <a th:href="@{/signIn}" class="btn btn-primary btn-lg">로그인</a>
+
+        <!-- 회원가입 버튼 -->
+        <!-- GET 방식으로 /signUp URL로 이동합니다. -->
+        <a th:href="@{/signUp}" class="btn btn-outline-secondary btn-lg">회원가입</a>
+    </div>
+</div>
+
+</body>
+</html>
