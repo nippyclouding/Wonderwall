@@ -8,14 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)
-public class MemberService {
-    private final MemberRepository memberRepository;
+public class SignMemberService {
+    private final SignMemberRepository signMemberRepository;
 
-    public MemberRepository getMemberRepository(){
-        return memberRepository;
+    public SignMemberRepository getSignMemberRepository(){
+        return signMemberRepository;
     }
 
     public SignMember findByLoginIdAndPassword(String loginId, String password){
-        return memberRepository.findByLoginIdAndPassword(loginId, password);
+        return signMemberRepository.findByLoginIdAndPassword(loginId, password);
     }
 }

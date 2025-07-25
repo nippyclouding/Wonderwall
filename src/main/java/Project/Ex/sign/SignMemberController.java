@@ -1,5 +1,9 @@
 package Project.Ex.sign;
 
+import Project.Ex.domain.member.Member;
+import Project.Ex.domain.member.MemberDTO;
+import Project.Ex.repository.memberRepository.MemberRepository;
+import Project.Ex.service.memberService.MemberService;
 import Project.Ex.sign.sign_domain.SignMember;
 import Project.Ex.sign.sign_domain.MemberDeleteDto;
 import Project.Ex.sign.sign_domain.MemberSignInDto;
@@ -18,9 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/")
 @RequiredArgsConstructor
 @Controller
-public class MemberController {
+public class SignMemberController {
 
-    private final MemberService memberService;
+    private final SignMemberService signMemberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping
     public String root(){
@@ -43,7 +48,13 @@ public class MemberController {
 
         log.info("new member signUp : {member}", memberDTO.getUsername());
 
-        SignMember savedSignMember = memberService.getMemberRepository().save(memberDTO.toEntity());
+        SignMember savedSignMember = signMemberService.getSignMemberRepository().save(memberDTO.toEntity());
+        //Member 객체도 저장
+        MemberDTO newMemberDTO = new MemberDTO(savedSignMember);
+        Member member = new Member(newMemberDTO);
+        memberRepository.save(member);
+
+
         redirectAttributes.addFlashAttribute("member", savedSignMember);
         return "redirect:signUpSuccess";
     }
@@ -66,7 +77,7 @@ public class MemberController {
 
         //form에서 넘겨받은 데이터로 DB의 회원 조회
         SignMember signMember = member.toEntity();
-        SignMember loginSignMember = memberService.getMemberRepository().findByLoginIdAndPassword(signMember.getLoginId(), signMember.getPassword());
+        SignMember loginSignMember = signMemberService.getSignMemberRepository().findByLoginIdAndPassword(signMember.getLoginId(), signMember.getPassword());
 
         //로그인 검증
         if(loginSignMember !=null){
@@ -132,7 +143,7 @@ public class MemberController {
 
         try {
             // 회원 삭제 처리
-            memberService.getMemberRepository().delete(loginSignMember);
+            signMemberService.getSignMemberRepository().delete(loginSignMember);
 
             // 세션 무효화
             httpSession.invalidate();

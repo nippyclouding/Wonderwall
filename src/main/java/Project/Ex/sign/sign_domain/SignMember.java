@@ -1,5 +1,6 @@
 package Project.Ex.sign.sign_domain;
 
+import Project.Ex.domain.member.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -24,6 +25,8 @@ public class SignMember {
     @Column @NotBlank
     private String username;
 
+    @OneToOne(mappedBy = "signMember", cascade = CascadeType.REMOVE)
+    private Member member;
 
     public SignMember(String loginId, String password, String username) {
         this.loginId = loginId;
