@@ -1,4 +1,4 @@
-package Project.Ex.sign.sign_domain;
+package Project.Ex.domain.auth.sign_domain;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

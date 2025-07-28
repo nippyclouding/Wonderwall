@@ -1,4 +1,4 @@
-package Project.Ex.sign.sign_domain.session;
+package Project.Ex.domain.auth.sign_domain.session;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

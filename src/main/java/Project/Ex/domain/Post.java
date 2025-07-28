@@ -1,7 +1,5 @@
-package Project.Ex.domain.post;
+package Project.Ex.domain;
 
-import Project.Ex.domain.comment.Comment;
-import Project.Ex.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -21,4 +19,14 @@ public class Post {
     private LocalDateTime date;
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
+
+    public Post() {
+    }
+
+    public Post(String title, String text, Member postingMember) {
+        this.title = title;
+        this.text = text;
+        this.postingMember = postingMember;
+        this.date = LocalDateTime.now();
+    }
 }

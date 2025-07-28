@@ -1,13 +1,12 @@
-package Project.Ex.sign;
+package Project.Ex.domain.auth;
 
-import Project.Ex.domain.member.Member;
-import Project.Ex.domain.member.MemberDTO;
-import Project.Ex.repository.memberRepository.MemberRepository;
-import Project.Ex.service.memberService.MemberService;
-import Project.Ex.sign.sign_domain.SignMember;
-import Project.Ex.sign.sign_domain.MemberDeleteDto;
-import Project.Ex.sign.sign_domain.MemberSignInDto;
-import Project.Ex.sign.sign_domain.MemberSignUpDto;
+import Project.Ex.domain.Member;
+import Project.Ex.domain.MemberDTO;
+import Project.Ex.repository.MemberRepository;
+import Project.Ex.domain.auth.sign_domain.SignMember;
+import Project.Ex.domain.auth.sign_domain.MemberDeleteDto;
+import Project.Ex.domain.auth.sign_domain.MemberSignInDto;
+import Project.Ex.domain.auth.sign_domain.MemberSignUpDto;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

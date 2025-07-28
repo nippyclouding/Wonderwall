@@ -1,7 +1,5 @@
-package Project.Ex.domain.profile;
+package Project.Ex.domain;
 
-import Project.Ex.domain.member.Member;
-import Project.Ex.domain.repost.Repost;
 import jakarta.persistence.*;
 import lombok.Getter;
 

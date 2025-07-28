@@ -1,10 +1,6 @@
-package Project.Ex.domain.member;
+package Project.Ex.domain;
 
-import Project.Ex.domain.comment.Comment;
-import Project.Ex.domain.post.Post;
-import Project.Ex.domain.profile.Profile;
-import Project.Ex.domain.repost.Repost;
-import Project.Ex.sign.sign_domain.SignMember;
+import Project.Ex.domain.auth.sign_domain.SignMember;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -30,7 +26,7 @@ public class Member {
 
     public Member(MemberDTO memberDTO) {
         userName = memberDTO.getUsername();
-        serialid = memberDTO.getSerialId();
+        serialid = memberDTO.getSerialId();   
     }
 
     protected Member() {

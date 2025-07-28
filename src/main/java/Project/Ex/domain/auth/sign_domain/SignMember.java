@@ -1,6 +1,6 @@
-package Project.Ex.sign.sign_domain;
+package Project.Ex.domain.auth.sign_domain;
 
-import Project.Ex.domain.member.Member;
+import Project.Ex.domain.Member;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

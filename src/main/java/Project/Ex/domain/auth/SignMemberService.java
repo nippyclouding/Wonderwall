@@ -1,6 +1,6 @@
-package Project.Ex.sign;
+package Project.Ex.domain.auth;
 
-import Project.Ex.sign.sign_domain.SignMember;
+import Project.Ex.domain.auth.sign_domain.SignMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

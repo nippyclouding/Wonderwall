@@ -1,4 +1,4 @@
-package Project.Ex.sign.sign_domain.session;
+package Project.Ex.domain.auth.sign_domain.session;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
