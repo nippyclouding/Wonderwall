@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,29 +40,41 @@ public class SignMemberController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@Valid MemberSignUpDto memberDTO, BindingResult bindingResult,RedirectAttributes redirectAttributes) {
+    public String signUp(@Valid MemberSignUpDto memberDTO, BindingResult bindingResult,RedirectAttributes redirectAttributes, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("member", memberDTO);
             return "sign/signUp";
         }
         if (signMemberService.isLoginIdDuplicate(memberDTO.getLoginId())) {
             bindingResult.rejectValue("loginId", "duplicate.loginId", "이미 사용 중인 ID입니다.");
+            model.addAttribute("member", memberDTO);
             return "sign/signUp";
         }
         try {
             log.info("new member signUp : {member}", memberDTO.getUsername());
 
-            SignMember savedSignMember = signMemberService.getSignMemberRepository().save(memberDTO.toEntity());
-            //Member 객체도 저장
-            MemberDTO newMemberDTO = new MemberDTO(savedSignMember);
-            Member member = new Member(newMemberDTO);
-            memberRepository.save(member);
-
+            // 회원가입 처리를 서비스에 위임 (트랜잭션 처리)
+            SignMember savedSignMember = signMemberService.signUp(memberDTO);
 
             redirectAttributes.addFlashAttribute("member", savedSignMember);
             return "redirect:signUpSuccess";
+        }catch (DataIntegrityViolationException e) {
+            // 데이터베이스 제약조건 위반 (중복 ID 등)
+            log.error("데이터 무결성 위반: {}", e.getMessage());
+            bindingResult.rejectValue("loginId", "duplicate.loginId", "이미 사용 중인 ID입니다.");
+            model.addAttribute("member", memberDTO);
+            return "sign/signUp";
+        }   catch (IllegalArgumentException e) {
+            // 서비스에서 던진 중복 ID 예외
+            log.error("중복 ID 에러: {}", e.getMessage());
+            bindingResult.rejectValue("loginId", "duplicate.loginId", e.getMessage());
+            // member 객체를 모델에 추가
+            model.addAttribute("member", memberDTO);
+            return "sign/signUp";
+
         } catch (Exception e) {
-            log.error("회원가입 중 오류 발생", e);
+            log.error("회원가입 중 오류 발생", e.getMessage());
             bindingResult.reject("signup.error", "회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
             return "sign/signUp";
         }

@@ -16,13 +16,16 @@ public class SignMember {
     @Column(name = "serial_id")
     private Long serialId;
 
-    @Column(unique = true) @NotBlank
+    @Column(unique = true, nullable = false, length = 50)
+    @NotBlank(message = "ID는 필수입니다.")
     private String loginId;
 
-    @Column @NotBlank
+    @Column(nullable = false)
+    @NotBlank(message = "비밀번호는 필수입니다.")
     private String password;
 
-    @Column @NotBlank
+    @Column(nullable = false, length = 100)
+    @NotBlank(message = "이름은 필수입니다.")
     private String username;
 
     @OneToOne(mappedBy = "signMember", cascade = CascadeType.REMOVE)
