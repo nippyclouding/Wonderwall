@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SignMemberRepository extends JpaRepository<SignMember, Long> {
     SignMember findByLoginIdAndPassword(String loginId, String password);
+    boolean existsByLoginId(String loginId);
 }

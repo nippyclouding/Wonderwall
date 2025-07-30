@@ -18,4 +18,7 @@ public class SignMemberService {
     public SignMember findByLoginIdAndPassword(String loginId, String password){
         return signMemberRepository.findByLoginIdAndPassword(loginId, password);
     }
+    public boolean isLoginIdDuplicate(String loginId) {
+        return signMemberRepository.existsByLoginId(loginId);
+    }
 }

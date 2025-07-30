@@ -39,23 +39,32 @@ public class SignMemberController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@Valid MemberSignUpDto memberDTO, BindingResult bindingResult,RedirectAttributes redirectAttributes){
+    public String signUp(@Valid MemberSignUpDto memberDTO, BindingResult bindingResult,RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "sign/signUp";
         }
+        if (signMemberService.isLoginIdDuplicate(memberDTO.getLoginId())) {
+            bindingResult.rejectValue("loginId", "duplicate.loginId", "이미 사용 중인 ID입니다.");
+            return "sign/signUp";
+        }
+        try {
+            log.info("new member signUp : {member}", memberDTO.getUsername());
 
-        log.info("new member signUp : {member}", memberDTO.getUsername());
-
-        SignMember savedSignMember = signMemberService.getSignMemberRepository().save(memberDTO.toEntity());
-        //Member 객체도 저장
-        MemberDTO newMemberDTO = new MemberDTO(savedSignMember);
-        Member member = new Member(newMemberDTO);
-        memberRepository.save(member);
+            SignMember savedSignMember = signMemberService.getSignMemberRepository().save(memberDTO.toEntity());
+            //Member 객체도 저장
+            MemberDTO newMemberDTO = new MemberDTO(savedSignMember);
+            Member member = new Member(newMemberDTO);
+            memberRepository.save(member);
 
 
-        redirectAttributes.addFlashAttribute("member", savedSignMember);
-        return "redirect:signUpSuccess";
+            redirectAttributes.addFlashAttribute("member", savedSignMember);
+            return "redirect:signUpSuccess";
+        } catch (Exception e) {
+            log.error("회원가입 중 오류 발생", e);
+            bindingResult.reject("signup.error", "회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+            return "sign/signUp";
+        }
     }
 
     @GetMapping("/signUpSuccess")
@@ -67,7 +76,8 @@ public class SignMemberController {
 
     //로그인 매핑
     @GetMapping("/signIn")
-    public String signInForm(){
+    public String signInForm(Model model){
+        model.addAttribute("member", new MemberSignInDto()); // 🆕 이 줄 추가
         return "sign/signIn";
     }
 
